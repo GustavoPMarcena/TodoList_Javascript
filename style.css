@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #bf5bf1;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    display: flex;
+    background-color: black;
+    padding-top: 0;
+    margin: 0;
+
+}
+
+header ul {
+    display: flex;
+    justify-content:space-between;
+   
+}
+
+header ul li{
+    list-style: none;
+    margin-right: 50px;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.todoDiv{
+    max-width: 480px;
+    margin: 3rem auto 0;
+    border: 2px solid black;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.addTodo{
+   color: black;
+}
+
+.addTodo label{
+    font-size: 1.5rem;
+}
+
+.todoMsg{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+}
+
+.todoText p{
+    font-size: 1.4rem;
+}
