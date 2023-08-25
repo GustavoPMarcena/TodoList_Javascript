@@ -41,8 +41,18 @@ header ul li a {
     border-radius: 10px;
 }
 
+.todoDiv button{
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    background-color: gray;
+    font-weight: bold;
+    border: 1px solid black;
+}
+
 .addTodo{
    color: black;
+   align-items: center; 
 }
 
 .addTodo label{
@@ -51,9 +61,10 @@ header ul li a {
 }
 
 .addTodo #inputLabel{
-    width: 90%;
-    height: 30px;
-    font-size: 1rem;
+    width: 85%;
+    height: 40px;
+    font-size: 1.3rem;
+    
     font-family: 'Roboto', sans-serif;
 }
 
@@ -79,3 +90,4 @@ header ul li a {
 .todoComplete p{
     text-decoration: line-through;
 }
+
