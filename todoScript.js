@@ -18,6 +18,18 @@ addBtn.addEventListener("click", () => {
 
 });
 
+document.addEventListener("keypress", (key) => {
+    if (key.code == "Enter"){
+        todoNewContent = document.getElementById("inputLabel").value;
+        if (todoNewContent) {
+            todoArray.push(todoNewContent);
+            document.getElementById("inputLabel").value = '';
+            console.log(todoArray);
+            addTodo();
+        }
+    }
+})
+
 document.addEventListener("click", (e) => {
     const targetElement = e.target;
     const parentElement = targetElement.closest("div");
