@@ -2,7 +2,7 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-    background-color: #bf5bf1;
+    background-color: #0d1117;
     margin: 0;
     padding: 0;
 }
@@ -37,7 +37,6 @@ header ul li a {
 .todoDiv{
     max-width: 480px;
     margin: 3rem auto 0;
-    border: 2px solid black;
     padding: 30px;
     border-radius: 10px;
 }
@@ -48,15 +47,35 @@ header ul li a {
 
 .addTodo label{
     font-size: 1.5rem;
+    color: white;
+}
+
+.addTodo #inputLabel{
+    width: 90%;
+    height: 30px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
 }
 
 .todoMsg{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding: 1rem ;
     align-items: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
 }
 
-.todoText p{
-    font-size: 1.4rem;
+.todoMsg p{
+    flex: 1;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.todoComplete{
+    background-color: gray;
+    
+}
+
+.todoComplete p{
+    text-decoration: line-through;
 }

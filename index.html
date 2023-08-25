@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TodoList</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
+
 <body>
     <header>
         <ul>
-            <li><a href="#" >Home</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="https://github.com/GustavoPMarcena" target="_blank">My github</a></li>
         </ul>
     </header>
@@ -18,32 +21,22 @@
             <div class="addTodo">
                 <label for="inputLabel">Adicione uma tarefa</label><br>
                 <input type="text" name="inputLabel" id="inputLabel">
-                <button id="submitButton" >+</button>
-                <hr style=" border: 1px solid black;">
+                <button id="submitButton">+</button>
+                <hr style=" border: 1px solid white;">
             </div>
 
             <div class="todoMsg">
-                <div class="todoText">
-                    <p>Tenho que comprar arroz</p>
-                </div>
-                <div class="todoButtons">
-                    <button id="EraseButton">X</button>
-                    <button id="CompleteButton">V</button>
-                </div>
+                <p>Tenho que comprar arroz</p>
+                <button class="eraseTodoButton" id="EraseButton">X</button>
+                <button class="completeTodoButton" id="CompleteButton">V</button>
             </div>
-            <div class="todoMsg">
-                <div class="todoText">
-                    <p>Passear com o cachorro</p>
-                </div>
-                <div class="todoButtons">
-                    <button id="EraseButton">X</button>
-                    <button id="CompleteButton">V</button>
-                </div>
-            </div>
-            
+           
+
 
 
         </div>
+        <script src="todoScript.js"></script>
     </main>
 </body>
+
 </html>
