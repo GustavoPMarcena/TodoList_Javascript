@@ -6,6 +6,8 @@ let todoArray = [];
 let isLoad = true;
 let divId = 0;
 
+// usada em load todo
+let localComplete = false;
 
 
 // EVENTOS
@@ -16,7 +18,7 @@ addBtn.addEventListener("click", () => {
     if (todoNewContent) {
         todoArray.push(todoNewContent);
         document.getElementById("inputLabel").value = '';
-        console.log(todoArray);
+
         isLoad = false;
         addTodo();
     }
@@ -37,56 +39,41 @@ document.addEventListener("keypress", (key) => {
     }
 })
 
+
 document.addEventListener("click", (e) => {
     const targetElement = e.target;
     const parentElement = targetElement.closest("div");
-    const buttonElement = targetElement.closest("button")
 
+
+    // Delete Button
     if (targetElement.classList.contains("eraseTodoButton")) {
         let id = parentElement.id;
-        deleteTodo(id);
         parentElement.remove();
-    } else {
-        try {
-            if (buttonElement.classList.contains("eraseTodoButton")) {
-                let divFocus = buttonElement.closest("div");
-                deleteTodo(divFocus.id);
-                parentElement.remove();
-            }
+        deleteTodo(id);
 
-        }
-        catch(error){
-            console.log(error);
-        }
     }
 
-    if (targetElement.classList.contains("completeTodoButton") ) {
-            if (parentElement.classList.contains("todoComplete")) {
-                parentElement.classList.remove("todoComplete");
-            } else {
-                parentElement.classList.add("todoComplete");
-            }
+    //Complete Button
+    if (targetElement.classList.contains("completeTodoButton")) {
+        if (parentElement.classList.contains("todoComplete")) {
+            parentElement.classList.remove("todoComplete");
+            let id = parentElement.id;
+            addCompleteTodo(id, false);
 
-    } else{
-        try{
-            if(buttonElement.classList.contains("completeTodoButton")){
-                let divFocus = buttonElement.closest("div");
-                if (divFocus.classList.contains("todoComplete")) {
-                    divFocus.classList.remove("todoComplete");
-                } else {
-                    divFocus.classList.add("todoComplete");
-                }
-                divFocus.classList.add("todoComplete");
-            }
-        }catch(error){
-            console.log(error);
+        } else {
+            parentElement.classList.add("todoComplete");
+            let id = parentElement.id;
+            addCompleteTodo(id, true);
         }
+
     }
-    
-    
+
+
 });
 
 // FUNÇÕES
+
+
 
 // Para carregar a página é verificado no local storage se tem algum dado guardado
 function loadPage() {
@@ -95,9 +82,23 @@ function loadPage() {
         a = a.split(",");
         isLoad = true;
         a.forEach(element => {
+            localComplete = verifyComplete(element);
+            element = element.replace(/:1/g, "");
+            console.log(element);
             todoNewContent = element;
             addTodo();
+            localComplete = false;
         });
+    }
+}
+
+function verifyComplete(string) {
+    const index = string.indexOf(":1");
+
+    if (index > -1) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -105,15 +106,46 @@ function deleteTodo(id) {
     let storageItens = localStorage.getItem("todoList");
     storageItens = storageItens.split(",");
     storageItens.splice(id, 1);
-    console.log(storageItens.length);
     if (storageItens.length == 0) {
         localStorage.removeItem("todoList");
+        divId = 0;
     } else {
         localStorage.setItem("todoList", storageItens);
+        divId--;
     }
+    reloadTodos();
 
 }
 
+//Em modificação
+
+function reloadTodos() {
+    const div = document.getElementById("containerDiv");
+
+    const taskDivs = div.querySelectorAll(".todoMsg");
+    console.log(taskDivs);
+    let index = 0;
+    taskDivs.forEach(element => {
+        element.setAttribute("id", index);
+        index++;
+    });
+
+
+}
+
+
+
+function addCompleteTodo(id, isComplete) {
+    let storageItens = localStorage.getItem("todoList");
+    storageItens = storageItens.split(",");
+    if (isComplete) {
+        storageItens[id] = `${storageItens[0]}:1`;
+        localStorage.setItem("todoList", storageItens);
+    } else {
+        storageItens[id] = storageItens[id].replace(/:1/g, "");
+        localStorage.setItem("todoList", storageItens);
+    }
+}
 
 function addTodo() {
     todoArray.push(todoNewContent);
@@ -128,10 +160,14 @@ function addTodo() {
 
     const eraseButton = document.createElement("button");
     const completeButton = document.createElement("button");
-    eraseButton.innerHTML = '<span class="material-symbols-outlined">close</span>';
+    eraseButton.textContent = "X";
     eraseButton.classList.add("eraseTodoButton");
-    completeButton.innerHTML = '<span class="material-symbols-outlined">done</span>';
+    completeButton.textContent = "V";
     completeButton.classList.add("completeTodoButton");
+    if (localComplete) {
+        todo.classList.add("todoComplete");
+    }
+
     todo.appendChild(eraseButton);
     todo.appendChild(completeButton);
     todoDiv.appendChild(todo);
