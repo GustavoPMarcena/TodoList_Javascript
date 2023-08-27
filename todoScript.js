@@ -11,8 +11,11 @@ let localComplete = false;
 
 
 // EVENTOS
+
+//Executado ao carregar a página para carregar as tarefas existentes
 document.onload = loadPage();
 
+//Salva o conteudo do input em uma nova tarefa com o pressionar do mouse
 addBtn.addEventListener("click", () => {
     todoNewContent = document.getElementById("inputLabel").value;
     if (todoNewContent) {
@@ -26,6 +29,7 @@ addBtn.addEventListener("click", () => {
 
 });
 
+//Salva o conteudo do input em uma nova tarefa com o pressionar da tecla enter
 document.addEventListener("keypress", (key) => {
     if (key.code == "Enter") {
         todoNewContent = document.getElementById("inputLabel").value;
@@ -39,7 +43,7 @@ document.addEventListener("keypress", (key) => {
     }
 })
 
-
+// Verifica o click do mouse
 document.addEventListener("click", (e) => {
     const targetElement = e.target;
     const parentElement = targetElement.closest("div");
@@ -83,7 +87,9 @@ function loadPage() {
         isLoad = true;
         a.forEach(element => {
             localComplete = verifyComplete(element);
-            element = element.replace(/:1/g, "");
+            if(localComplete){
+               element = element.replace(/:1/g, ""); 
+            }
             console.log(element);
             todoNewContent = element;
             addTodo();
@@ -102,6 +108,7 @@ function verifyComplete(string) {
     }
 }
 
+//Deleta o todo e salva a deleção
 function deleteTodo(id) {
     let storageItens = localStorage.getItem("todoList");
     storageItens = storageItens.split(",");
@@ -117,7 +124,7 @@ function deleteTodo(id) {
 
 }
 
-//Em modificação
+//Recarregar as ids das divs das tarefas
 
 function reloadTodos() {
     const div = document.getElementById("containerDiv");
@@ -134,12 +141,13 @@ function reloadTodos() {
 }
 
 
+//Salvar se a tarefa está ou não completa
 
 function addCompleteTodo(id, isComplete) {
     let storageItens = localStorage.getItem("todoList");
     storageItens = storageItens.split(",");
     if (isComplete) {
-        storageItens[id] = `${storageItens[0]}:1`;
+        storageItens[id] = `${storageItens[id]}:1`;
         localStorage.setItem("todoList", storageItens);
     } else {
         storageItens[id] = storageItens[id].replace(/:1/g, "");
@@ -147,6 +155,7 @@ function addCompleteTodo(id, isComplete) {
     }
 }
 
+//Adicionar a tarefa
 function addTodo() {
     todoArray.push(todoNewContent);
     const todo = document.createElement("div");
